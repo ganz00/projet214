@@ -1,24 +1,24 @@
 package simulation;
 
 public class Horaire {
-	private int Debut;
-	private int Fin;
+	private Heure Debut;
+	private Heure Fin;
 	private String Nom;
 	public int CalculHeure(int Debut,int Fin)
 	{
-		int Resultat= Fin -Debut;
+		int Resultat= Fin - Debut;
 		return Resultat;
 	}
-	public int getDebut() {
+	public Heure getDebut() {
 		return Debut;
 	}
-	public void setDebut(int debut) {
+	public void setDebut(Heure debut) {
 		Debut = debut;
 	}
-	public int getFin() {
+	public Heure getFin() {
 		return Fin;
 	}
-	public void setFin(int fin) {
+	public void setFin(Heure fin) {
 		Fin = fin;
 	}
 	public String getNom() {
