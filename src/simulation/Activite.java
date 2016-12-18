@@ -8,6 +8,7 @@ public class Activite {
 
 	public int Id_Activite ;
 	public ArrayList<Appareil> listeAppareil;
+	
 	public Activite(int id_Activite) {
 		super();
 		Id_Activite = id_Activite;

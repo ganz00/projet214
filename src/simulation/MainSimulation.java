@@ -40,9 +40,8 @@ public class MainSimulation {
 			dataSource.setUser("root");
 			dataSource.setPassword("root");
 		
-		
-		
 		// Création des Activités
+		Programme pgr = new Programme();
 		Activite activite1 = new Activite(1);
 		Activite activite2 = new Activite(2);
 		Activite activite3 = new Activite(3);
