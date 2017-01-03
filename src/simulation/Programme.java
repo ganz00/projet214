@@ -2,9 +2,7 @@ package simulation;
 
 import SimulationAppareil.*;
 
-import java.util.ArrayList;
 
-import simulation.Saison;
 
 
 public  class Programme {
@@ -38,6 +36,8 @@ public  class Programme {
 	public Programme() {
 		super();
 		declare();
+		hazart1 = new Activite[10];
+		hazart2 = new Activite[6];
 		initE();
 		setTab(Ete, dormir, dejeune, hazart1, hazart2);
 	    initH();
@@ -157,6 +157,13 @@ public  class Programme {
 		douche.listeAppareil.add(refrig);
 		douche.listeAppareil.add(Echaude);
 		promenade.listeAppareil.add(refrig);
+		if(ind == 3 || ind == 2){
+			detente.listeAppareil.add(chauffage);
+			preparer.listeAppareil.add(chauffage);
+			douche.listeAppareil.add(chauffage);
+			promenade.listeAppareil.add(chauffage);
+			sieste.listeAppareil.add(chauffage);
+		}
 		hazart1 = new Activite[10];
 		Activite[] haza = {sieste, detente, preparer, douche, promenade};
 		faire(T,haza);
@@ -176,6 +183,11 @@ public  class Programme {
 		preparer.listeAppareil.add(refrig);
 		douche.listeAppareil.add(refrig);
 		douche.listeAppareil.add(Echaude);
+		if(ind == 3 || ind == 2){
+			detente.listeAppareil.add(chauffage);
+			preparer.listeAppareil.add(chauffage);
+			douche.listeAppareil.add(chauffage);
+		}
 		Activite[] haza = {detente, preparer, douche};
 		faire2(TT,haza);
 
