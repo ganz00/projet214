@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import SimulationAppareil.Appareil;
+import SimulationAppareil.Incident;
 import simulation.DataSourceSingleConnection;
 
 public class MainSimulation {
@@ -20,6 +21,8 @@ public class MainSimulation {
 	public static Appareil appareil;
 	public static int boo = 0;
 	public static DataSourceSingleConnection dataSource;
+	public static Incident incident = new Incident();
+	public static Incident incident2 = new Incident();
 	
 	public static void main(String[] args) throws SQLException, IOException {
 		File RepTravail = new File(System.getProperty("user.dir"));
@@ -36,6 +39,27 @@ public class MainSimulation {
 		
 		// Création des Activités
 		Programme pgr = new Programme();
+		
+		// Création des incidents
+				incident.annee = 2016;
+				incident.heure = 14;
+				incident.valeur = 300;
+				incident.jour = 14;
+				incident.mois = 1;
+				
+				incident2.annee = 2016;
+				incident2.heure = 15;
+				incident2.valeur = 250;
+				incident2.jour = 16;
+				incident2.mois = 1;
+				
+				
+				
+				// Listes des incidents
+				ArrayList<Incident> listesIncident = new ArrayList<Incident>();
+				listesIncident.add(incident);
+				listesIncident.add(incident2);
+				
 		
 		// Création des appareils et association à une activité
 
@@ -59,25 +83,28 @@ public class MainSimulation {
 		File f = new File(RepTravail, tableau[(date.mois - 1) % 12] + date.annee + ".txt");
 		
 		try (PrintWriter pw = new PrintWriter(new FileWriter(f, true))) {
-		while (date.mois == 1) {
+		while (date.mois < 3) {
 			int saison = DetermineSaison(date.mois);
 			// permet d'organiser la date
+			for(Incident incident : listesIncident) {
+				 				if ((incident.heure == h.heure) && (incident.mois == date.mois) && (incident.jour == date.jour)) {
+				 					
+				 					InsertionBD(99, incident.jour, incident.mois, incident.annee, incident.heure, incident.valeur, saison);
+				 				}
+				 		}
 			if ((h.heure >= 22 && h.heure <= 23) || (h.heure >= 0 && h.heure <= 8)) {
-				System.out.println("dormir");
 				DormirReveil(pgr.getsaison(saison)[0][0], date, h.heure,pw);
 			} else if (h.heure > 8 && h.heure <= 10) {
-				System.out.println("petit dejeuner");
 				DormirReveil(pgr.getsaison(saison)[1][0], date, h.heure,pw);
 			} else if (h.heure > 10 && h.heure <= 19) {
-				System.out.println("hasart1");
 				Hasard(pgr.getsaison(saison)[2],date,h.heure,pw,10);
 			} else if (h.heure > 19 && h.heure < 22) {
-				System.out.println("hasart2");
 				Hasard(pgr.getsaison(saison)[3],date,h.heure,pw,6);
 			}
 			calcul();
 		}
 		dataSource.closeConnection();
+		System.out.println("TERMINER");
 	}
 		
 }
@@ -159,7 +186,7 @@ public static void InsertionBD(int num,int jour,int mois,int annee,int heure,int
 			Appareil A = iter.next();
 			int consomation = (int) A.conso;
 			int id = A.num;
-		
+			
 			InsertionBD(id, d.jour, d.mois, d.annee,h.heure, consomation,saison[s].getNumero()+1);
 		}
 	}
@@ -197,8 +224,8 @@ public static void InsertionBD(int num,int jour,int mois,int annee,int heure,int
 		saison[2].setFin((date6.mois));
 		saison[3].setDebut((date7.mois));
 		saison[3].setFin((date8.mois));
-		saison[0].setNumero(0);
-		saison[1].setNumero(1);
+		saison[0].setNumero(1);
+		saison[1].setNumero(4);
 		saison[2].setNumero(2);
 		saison[3].setNumero(3);
 
